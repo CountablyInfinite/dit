@@ -1,0 +1,34 @@
+# configure spoofing/sniffing targets
+targets:  
+  iot_srv_ip: 192.168.183.129
+  iot_srv_po: 1337
+  iot_cli_ip: 192.168.183.128
+  ciphers:
+    # if no ciphers are configured, DIT will offer all ciphersuites available with mbedTLS
+    #- TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384
+    #- TLS-PSK-WITH-AES-128-CCM-8
+    #- TLS-RSA-WITH-AES-128-GCM-SHA256
+
+# configure interface names
+interfaces:
+  ex_if_name: ens33
+  lh_if_name: lo
+
+# configure psk options
+psk:
+  cli_id: Client_identity
+  pre_sh_key: DIT_secret
+
+# configure certificate options
+certificate:
+  # default is RSA. "use_ecc" arg enables ECC and disables key_size
+  use_cert: False
+  key_size: 2048
+  use_ecc: False
+
+# configure local dtls services
+local_services:
+  lh_cli_ip: 127.0.0.1
+  lh_cli_po: 1338
+  lh_srv_ip: 127.0.0.1
+  lh_srv_po: 1339
