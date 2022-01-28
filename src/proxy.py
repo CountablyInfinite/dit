@@ -26,7 +26,7 @@ class Proxy():
         self._logger.debug("Created a new sniffer to sniff incoming client packets. Process id: "
                            f"{os.getpid()}, Parent id: {os.getppid()}")
         while True:
-            sniff(filter=f"ip proto UDP and not ether src {interf_mac} and ip dst host {dst_ip} and"
+            sniff(filter=f"ip proto 17 and not ether src {interf_mac} and ip dst host {dst_ip} and"
                          f" ip src host {src_ip} and ((dst port {dst_port}) or (((ip[6:2] > 0) or "
                          "(ip[7] > 0)) and (not ip[6] = 64)))",
                   iface=interf,
@@ -39,7 +39,7 @@ class Proxy():
         self._logger.debug("Created a new sniffer to sniff outgoing client packets. Process id: "
                            f"{os.getpid()}, Parent id: {os.getppid()}")
         while True:
-            sniff(filter=f"ip proto UDP and ip src host {src_ip} and src port {src_port}",
+            sniff(filter=f"ip proto 17 and ip src host {src_ip} and src port {src_port}",
                   iface=interf,
                   prn=func(new_src_ip, new_src_port, new_dst_ip, new_dst_port))
 
@@ -49,7 +49,7 @@ class Proxy():
         self._logger.debug("Created a new sniffer to sniff incoming server packets. Process id: "
                            f"{os.getpid()}, Parent id: {os.getppid()}")
         while True:
-            sniff(filter=f"ip proto UDP and not ether src {interf_mac} and ip dst host {dst_ip} and"
+            sniff(filter=f"ip proto 17 and not ether src {interf_mac} and ip dst host {dst_ip} and"
                          f" ip src host {src_ip} and ((src port {src_port}) or (((ip[6:2] > 0) or "
                          "(ip[7] > 0)) and (not ip[6] = 64)))",
                   iface=interf,
@@ -62,7 +62,7 @@ class Proxy():
         self._logger.debug("Created a new sniffer to sniff outgoing server packets. Process id: "
                            f"{os.getpid()}, Parent id: {os.getppid()}")
         while True:
-            sniff(filter=f"ip proto UDP and ip src host {src_ip} and dst port {dst_port}",
+            sniff(filter=f"ip proto 17 and ip src host {src_ip} and dst port {dst_port}",
                   iface=interf,
                   prn=func(new_src_ip, new_src_port, new_dst_ip, new_dst_port))
 
